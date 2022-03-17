@@ -15,11 +15,15 @@ function App() {
   const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
-    let lData = JSON.parse(localStorage.getItem('user'));
-    let lroomData = JSON.parse(localStorage.getItem('room'));
-    if (localStorage.getItem('user')) setUsername(lData );
-    if (localStorage.getItem('room')) setRoom(lroomData);
-    if (lData && lroomData) {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let roomData = JSON.parse(localStorage.getItem('room'));
+    let imgData = JSON.parse(localStorage.getItem('img'));
+
+    if (localStorage.getItem('user')) setUsername(userData);
+    if (localStorage.getItem('room')) setRoom(roomData);
+    if (localStorage.getItem('img')) setImage(imgData);
+
+    if (userData && roomData && imgData) {
       console.log('join conected');
       socket.emit("join_room", room);
       setShowChat(true);
@@ -29,6 +33,7 @@ function App() {
   useEffect(() => {
     if (username) localStorage.setItem('user', JSON.stringify(username));
     if (room) localStorage.setItem('room', JSON.stringify(room));
+    if (image) localStorage.setItem('img', JSON.stringify(image));
   }, [username, room]);
 
   const joinRoom = () => {
@@ -38,11 +43,26 @@ function App() {
     }
   };
 
+  const imgToBase64 = (e) => {
+    let filesSelected = e.target.files;
+
+    if (filesSelected.length > 0) {
+      var fileToLoad = filesSelected[0];
+
+      var reader = new FileReader();
+
+      reader.readAsDataURL(fileToLoad);
+      reader.onload = e => setImage(e.target.result)
+    }
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('room')
+    localStorage.removeItem('img')
     setUsername('');
     setRoom('');
+    setImage('');
     localStorage.removeItem('history')
     setShowChat(false);
   }
@@ -61,9 +81,19 @@ function App() {
             type="text"
             placeholder="Enter your name"
             onChange={(e) => {
-            setUsername(e.target.value);
+              setUsername(e.target.value);
             }}
           />
+
+          {
+            image && <img src={image} alt="" />
+          }
+          <input className="image-load" onChange={(e) => imgToBase64(e)}
+            accept="image/png, image/jpeg"
+            type="file"
+          />
+          {/* <label for="f02">Add profile picture</label> */}
+
           <input
             type="text"
             placeholder="Room ID"
