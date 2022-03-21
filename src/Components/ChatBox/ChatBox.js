@@ -43,8 +43,8 @@ const Chat = ({ socket, username, room, image, loggedIn,handleLogout }) => {
 
   return (
     <div className="chat-window">
-         <img className="img-size" src={image} alt=""/>
       <div className="chat-header">
+        <img className="img-size" src={image} alt=""/>
         <p>{username}</p>
       </div>
       <div className="chat-body">

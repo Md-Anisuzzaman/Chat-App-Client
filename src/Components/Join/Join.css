@@ -23,7 +23,6 @@
 .joinContainer h1{
     border-bottom: 2px solid rgb(0, 98, 255);
     font-size: 2.5rem ;
-   
 }
 
 .joinContainer h1 span{
@@ -37,7 +36,6 @@
     border-radius: 5px;
 }
 
-
 .joinbtn{
     padding: 12px; 
     font-size: 18px;
@@ -50,7 +48,6 @@
     transition: all 0.3s;
     cursor: pointer;
 }
-
 .joinbtn:hover{
     opacity: 0.8;
 }

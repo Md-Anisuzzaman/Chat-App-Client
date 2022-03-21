@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import logo from './images/logo.png'
 import Chat from './Components/ChatBox/ChatBox';
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://frozen-atoll-89786.herokuapp.com/");
 
 
 function App() {
@@ -104,7 +104,7 @@ function App() {
           <button onClick={joinRoom}>Log In</button>
         </div>
       ) : (
-        <Chat socket={socket} handleLogout={handleLogout} username={username} room={room} />
+        <Chat socket={socket} image={image} handleLogout={handleLogout} username={username} room={room} />
       )}
     </div>
   );
